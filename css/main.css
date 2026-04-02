@@ -72,4 +72,37 @@ body {
     #sidebar.active {
         left: 0;
     }
+
+
+/* css/main.css - Tambahkan di bagian bawah */
+
+/* Definisi Animasi Garis Scan */
+@keyframes scan-line-move {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+/* Class untuk menerapkan animasi */
+.animate-scan-line {
+    animation: scan-line-move 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    /* Memberikan efek glow pada garis */
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.7); 
+}
+
+/* Memperhalus tampilan overlay teks agar tidak menutupi wajah */
+#clock-overlay, #date-overlay, #location-overlay {
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
 }
