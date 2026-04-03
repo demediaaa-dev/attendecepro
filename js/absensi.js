@@ -178,18 +178,22 @@ const Absensi = {
             timestamp_client: new Date().toISOString() 
         };
 
+        // Di dalam js/absensi.js fungsi prosesAbsen()
         try {
             const res = await BASE_API.post('absen', payload);
-            alert(res.message);
             
             if(res.status === 'success') {
+                UI.showToast(res.message, 'success'); // Notifikasi Cantik
                 this.cleanup();
-                window.location.hash = '#dashboard';
+                setTimeout(() => {
+                    window.location.hash = '#dashboard';
+                }, 1500);
             } else {
+                UI.showToast(res.message, 'error');
                 this.resetButton(btn, type);
             }
         } catch (error) {
-            alert("Terjadi kesalahan koneksi ke server.");
+            UI.showToast("Koneksi gagal/CORS Error", 'error');
             this.resetButton(btn, type);
         }
     },
