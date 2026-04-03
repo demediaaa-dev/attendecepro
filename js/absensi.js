@@ -145,6 +145,7 @@ const Absensi = {
     async prosesAbsen(type) {
         const btn = document.getElementById('btn-absen');
         const video = document.getElementById('video-feed');
+        const type = sessionStorage.getItem('attendance_type') || 'masuk';
         
         if (!this.coords) {
             alert("Harap tunggu hingga GPS terkunci (Lampu Hijau)!");
@@ -196,6 +197,15 @@ const Absensi = {
             UI.showToast("Koneksi gagal/CORS Error", 'error');
             this.resetButton(btn, type);
         }
+
+        const res = await BASE_API.post('absen', payload);
+    
+    if(res.status === 'success') {
+        UI.showToast(res.message, 'success');
+        sessionStorage.removeItem('attendance_type'); // Hapus session setelah sukses
+        this.cleanup();
+        setTimeout(() => { window.location.hash = '#dashboard'; }, 1500);
+    }
     },
 
     // Fungsi pembantu untuk mereset tombol jika gagal
