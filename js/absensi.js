@@ -60,17 +60,30 @@ const Absensi = {
             </div>
         `;
 
-        lucide.createIcons(); // Render ikon Lucide
-        
-        // Mulai Sistem
-        await FaceRec.loadModels();
-        // Memanggil startCamera tanpa konfigurasi ideal agar browser mobile menggunakan setting default (tidak terlalu zoom)
-        FaceRec.startCamera('video-feed');
-        
-        this.startGpsTracking();
-        this.startOverlayClock();
-    },
+        lucide.createIcons();
+    
+    const btn = document.getElementById('btn-absen');
+    btn.disabled = true; // Matikan tombol dulu
+    btn.innerHTML = `<span class="animate-pulse">Menyiapkan AI...</span>`;
 
+    // Pastikan Kamera Jalan
+    await FaceRec.startCamera('video-feed');
+    
+    // Tunggu AI Load
+    const aiReady = await FaceRec.loadModels();
+    
+    if (aiReady) {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="log-in" class="w-5 h-5"></i> Klik untuk Absen Masuk`;
+        lucide.createIcons();
+    } else {
+        btn.innerHTML = `AI Gagal Dimuat`;
+    }
+
+    this.startGpsTracking();
+    this.startOverlayClock();
+    },
+    
     // Fungsi untuk mengupdate Jam & Tanggal di Overlay Kamera setiap detik
     startOverlayClock() {
         const clockEl = document.getElementById('clock-overlay');
