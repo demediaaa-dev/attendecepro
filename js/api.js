@@ -1,5 +1,5 @@
 // js/api.js
-const API_URL = "https://script.google.com/macros/s/AKfycbz7Jon116CsLReIs4wu-LOSqVrpgPC2eduFgmmfAZ4LdOYGRHStId0DZxlrD8Lr18Kg/exec"; 
+const API_URL = "https://script.google.com/macros/s/AKfycbxreX22T14uqKf5FHO7VFA2Zu_8wUFJkseAcVkXSivAMIDCNhRozpoyI45qtCof4Z6C/exec"; 
 
 const BASE_API = {
     async post(action, payload) {
